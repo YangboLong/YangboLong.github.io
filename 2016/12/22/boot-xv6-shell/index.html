@@ -96,19 +96,19 @@ There is a auto-loading warning when launch">
 Installing tools
 Use make &amp;amp;&amp;amp; sudo make install to compile QEMU, to avoid any permission error.
 There is a auto-loading warning when launch">
-<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.0.png">
-<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.1.png">
-<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.4.png">
-<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.2.png">
-<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.3.png">
-<meta property="og:updated_time" content="2016-12-22T16:32:40.406Z">
+<meta property="og:image" content="https://yangbolong.github.io/images/hw1.0.png">
+<meta property="og:image" content="https://yangbolong.github.io/images/hw1.1.png">
+<meta property="og:image" content="https://yangbolong.github.io/images/hw1.4.png">
+<meta property="og:image" content="https://yangbolong.github.io/images/hw1.2.png">
+<meta property="og:image" content="https://yangbolong.github.io/images/hw1.3.png">
+<meta property="og:updated_time" content="2016-12-22T16:56:52.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT 6.828 HW Boot xv6 & Shell">
 <meta name="twitter:description" content="The homework solutions of mine were uploaded to here.
 Installing tools
 Use make &amp;amp;&amp;amp; sudo make install to compile QEMU, to avoid any permission error.
 There is a auto-loading warning when launch">
-<meta name="twitter:image" content="https://yangbolong.github.io/uploads/hw1.0.png">
+<meta name="twitter:image" content="https://yangbolong.github.io/images/hw1.0.png">
 
 
 
@@ -300,7 +300,7 @@ There is a auto-loading warning when launch">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T11:32:40-05:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-22T11:51:34-05:00">
                 2016-12-22
               </time>
             
@@ -368,19 +368,19 @@ There is a auto-loading warning when launch">
 </ul>
 <p>Find the address of <code>_start</code>, the entry point of the kernel:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ nm kernel | grep _start</div><div class="line">8010a48c D _binary_entryother_start</div><div class="line">8010a460 D _binary_initcode_start</div><div class="line">0010000c T _start</div></pre></td></tr></table></figure></p>
 <h2 id="Before-entering-bootmain"><a href="#Before-entering-bootmain" class="headerlink" title="Before entering bootmain"></a>Before entering bootmain</h2><p>The very first instruction that the CPU executes upon power-up is a <code>jump</code> instruction stored in ROM. The BIOS will load the 512-byte boot sector, which was stored in the first sector of hard disk, into memory at physical addresses 0x7c00 through 0x7dff. Next, it’s the time to execute the boot loader code (switch from real mode to protected mode) and enter the kernel, which takes charge of everything finally.</p>
-<p><img src="uploads/hw1.0.png" alt=""></p>
+<p><img src="/images/hw1.0.png" alt=""></p>
 <p>As shown in the above image, at the entry point of <code>0x7c00</code> the system is still under the real mode, with <code>SS = 0</code> and the stack pointer <code>ESP</code> points to an address below <code>0x7c00</code>.</p>
 <p>When the program halts right before calling routine bootmain, it can be found that the system has entered the protected mode which is indicated by the <code>SS = 0x10</code> in the picture below. <code>ESP</code> is also initialized to be <code>0x7c00</code> right before entering bootmain.</p>
-<p><img src="uploads/hw1.1.png" alt=""></p>
+<p><img src="/images/hw1.1.png" alt=""></p>
 <p>When routine bootmain is called, the <code>call bootmain</code> instruction saves the return address (<code>0x7c4d</code>) to stack. In the case of a function call with arguments, all arguments will also be saved into stack. As of now, the memory structure can be depicted as below.</p>
-<p><img src="uploads/hw1.4.png" alt=""></p>
+<p><img src="/images/hw1.4.png" alt=""></p>
 <h2 id="Executing-bootmain"><a href="#Executing-bootmain" class="headerlink" title="Executing bootmain"></a>Executing bootmain</h2><p>In bootblock.asm, the first instruction of bootmain, <code>push %ebp</code>, saves the frame pointer <code>EBP</code> to stack, which is usually used to fetch function arguments in stack during a function call.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void</div><div class="line">bootmain(void)</div><div class="line">&#123;</div><div class="line">    7d3b:   55                      push   %ebp</div><div class="line">    7d3c:   89 e5                   mov    %esp,%ebp</div></pre></td></tr></table></figure>
 <p>The stack content look like below after saving <code>EBP</code>. Note that the stack top address decreases when new elements are pushed into stack.</p>
-<p><img src="uploads/hw1.2.png" alt=""></p>
+<p><img src="/images/hw1.2.png" alt=""></p>
 <h2 id="Entering-kernel"><a href="#Entering-kernel" class="headerlink" title="Entering kernel"></a>Entering kernel</h2><p>The C function <code>entry()</code> in bootmain.c enters the kernel code and starts kernel execution, which is the main purpose of bootmain. The compiled assembly instructions below shows that the entry address of kernel was saved at the address <code>0x10018</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// Call the entry point from the ELF header.</div><div class="line">// Does not return!</div><div class="line">entry = (void(*)(void))(elf-&gt;entry);</div><div class="line">entry();</div><div class="line">7dae:   ff 15 18 00 01 00       call   *0x10018</div></pre></td></tr></table></figure></p>
 <p>When the program jumps to kernel code address <code>0x10000c</code>, the return address of the C function call <code>entry()</code> is also saved to stack as shown in the picture below.</p>
-<p><img src="uploads/hw1.3.png" alt=""></p>
+<p><img src="/images/hw1.3.png" alt=""></p>
 <h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="Reading-notes"><a href="#Reading-notes" class="headerlink" title="Reading notes"></a>Reading notes</h2><p>While reading Chapter 0 of the <a href="https://pdos.csail.mit.edu/6.828/2016/xv6/book-rev9.pdf" target="_blank" rel="external">xv6 book</a>, some brief notes were taken as below.</p>
 <ul>
 <li><p><code>fork</code> and <code>exec</code> are not combined in a single call, to allow the child process to redirect I/O before it runs the program. For example,</p>

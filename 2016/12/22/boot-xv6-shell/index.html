@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="MIT6.828," />
 
 
 
@@ -84,12 +84,31 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Yangbo's Blog">
-<meta property="og:url" content="https://yangbolong.github.io/index.html">
+<meta name="description" content="The homework solutions of mine were uploaded to here.
+Installing tools
+Use make &amp;amp;&amp;amp; sudo make install to compile QEMU, to avoid any permission error.
+There is a auto-loading warning when launch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT 6.828 HW Boot xv6 & Shell">
+<meta property="og:url" content="https://yangbolong.github.io/2016/12/22/boot-xv6-shell/index.html">
 <meta property="og:site_name" content="Yangbo's Blog">
+<meta property="og:description" content="The homework solutions of mine were uploaded to here.
+Installing tools
+Use make &amp;amp;&amp;amp; sudo make install to compile QEMU, to avoid any permission error.
+There is a auto-loading warning when launch">
+<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.0.png">
+<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.1.png">
+<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.4.png">
+<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.2.png">
+<meta property="og:image" content="https://yangbolong.github.io/uploads/hw1.3.png">
+<meta property="og:updated_time" content="2016-12-22T16:32:40.406Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yangbo's Blog">
+<meta name="twitter:title" content="MIT 6.828 HW Boot xv6 & Shell">
+<meta name="twitter:description" content="The homework solutions of mine were uploaded to here.
+Installing tools
+Use make &amp;amp;&amp;amp; sudo make install to compile QEMU, to avoid any permission error.
+There is a auto-loading warning when launch">
+<meta name="twitter:image" content="https://yangbolong.github.io/uploads/hw1.0.png">
 
 
 
@@ -117,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://yangbolong.github.io/"/>
+  <link rel="canonical" href="https://yangbolong.github.io/2016/12/22/boot-xv6-shell/"/>
 
 
 
 
 
-  <title> Yangbo's Blog </title>
+  <title> MIT 6.828 HW Boot xv6 & Shell | Yangbo's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -144,9 +163,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,9 +252,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -270,10 +287,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/12/22/boot-xv6-shell/" itemprop="url">
-                  MIT 6.828 HW Boot xv6 & Shell
-                </a>
+                MIT 6.828 HW Boot xv6 & Shell
               
             
           </h1>
@@ -340,9 +354,7 @@
       
 
       
-        
-          
-            <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw" target="_blank" rel="external">here</a>.</p>
+        <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw" target="_blank" rel="external">here</a>.</p>
 <h1 id="Installing-tools"><a href="#Installing-tools" class="headerlink" title="Installing tools"></a>Installing tools</h1><ul>
 <li>Use <code>make &amp;&amp; sudo make install</code> to compile QEMU, to avoid any permission error.</li>
 <li>There is a <code>auto-loading</code> warning when launching GDB for the first time. Add a line to the <code>.gdbinit</code> file according to the info below:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">warning: File &quot;/home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit&quot; auto-loading has been declined by your `auto-load safe-path&apos; set to &quot;$debugdir:$datadir/auto-load&quot;.</div><div class="line">To enable execution of this file add</div><div class="line">    add-auto-load-safe-path /home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.</div><div class="line">To completely disable this security protection add</div><div class="line">    set auto-load safe-path /</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.`</div></pre></td></tr></table></figure>
@@ -386,194 +398,62 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cmd &#123;           <span class="comment">// act like a base class to be inherited by various commands</span></div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">//  ' ' (exec), | (pipe), '&lt;' or '&gt;' for redirection</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> execcmd &#123;</div><div class="line">    <span class="keyword">int</span> type;              <span class="comment">// ' '</span></div><div class="line">    <span class="keyword">char</span> *argv[MAXARGS];   <span class="comment">// arguments to the command to be exec-ed</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> redircmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// &lt; or &gt;</span></div><div class="line">    <span class="keyword">struct</span> cmd *cmd;   <span class="comment">// the command to be run (e.g., an execcmd)</span></div><div class="line">    <span class="keyword">char</span> *file;        <span class="comment">// the input/output file</span></div><div class="line">    <span class="keyword">int</span> mode;          <span class="comment">// the mode to open the file with</span></div><div class="line">    <span class="keyword">int</span> fd;            <span class="comment">// the file descriptor number to use for the file</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> pipecmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// |</span></div><div class="line">    <span class="keyword">struct</span> cmd *left;  <span class="comment">// left side of pipe</span></div><div class="line">    <span class="keyword">struct</span> cmd *right; <span class="comment">// right side of pipe</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p><code>execcmd</code> means the commands that can be executed directly, without I/O redirection and pipes etc. More details about the structure and logic of the <code>sh.c</code> program can be seen in my <a href="https://github.com/YangboLong/MIT6.828/blob/master/hw/hw2/sh.c" target="_blank" rel="external">solution</a>.</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2016/12/18/hexo-git/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Yangbo Long">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/uploads/julia.JPG">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Yangbo's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Yangbo's Blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/18/hexo-git/" itemprop="url">
-                  Create a Github blog with Hexo on Ubuntu 16.04
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-18T19:07:31-05:00">
-                2016-12-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/MIT6-828/" rel="tag"># MIT6.828</a>
           
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>This very first blog article introduces how to deploy Hexo with Github. For detailed information about Hexo, see the official <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">document</a> page.</p>
-<h2 id="Installing-Nodejs"><a href="#Installing-Nodejs" class="headerlink" title="Installing Nodejs"></a>Installing Nodejs</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl <span class="_">-s</span>L https://deb.nodesource.com/setup_4.x | sudo -E bash -</div><div class="line">$ sudo apt-get install -y nodejs</div></pre></td></tr></table></figure>
-<h2 id="Installing-npm-and-Hexo"><a href="#Installing-npm-and-Hexo" class="headerlink" title="Installing npm and Hexo"></a>Installing npm and Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt install npm</div><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
-<p>After the installation of Hexo, create a <code>blog</code> folder under the <code>home</code> directory.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ <span class="built_in">cd</span> blog/</div><div class="line">$ npm install</div><div class="line">$ hexo -v</div></pre></td></tr></table></figure>
-<p>Check how the page looks like by running the command below and then open the generated link in a web browser.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo s --debug</div></pre></td></tr></table></figure>
-<h2 id="Setting-up-Hexo-themes"><a href="#Setting-up-Hexo-themes" class="headerlink" title="Setting up Hexo themes"></a>Setting up Hexo themes</h2><p>My preferred theme was downloaded from below:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/blog</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure>
-<p>More settings about the NexT theme can be found <a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">here</a>.</p>
-<h2 id="Configuring-Github-and-Hexo"><a href="#Configuring-Github-and-Hexo" class="headerlink" title="Configuring Github and Hexo"></a>Configuring Github and Hexo</h2><ul>
-<li>Create a new repository on Github and name it to be <code>YangboLong.github.io</code></li>
-<li><p>Generate a new SSH key:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Add the SSH key to your Github account: <a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/" target="_blank" rel="external">add key</a></p>
-</li>
-<li>Edit <code>_config.yml</code> in the directory of <code>~/blog</code></li>
-<li>Run the following command:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Setting-up-deployment"><a href="#Setting-up-deployment" class="headerlink" title="Setting up deployment"></a>Setting up deployment</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean</div><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>Now, my first blog is up and running. Enjoy!</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/18/hexo-git/" rel="next" title="Create a Github blog with Hexo on Ubuntu 16.04">
+                <i class="fa fa-chevron-left"></i> Create a Github blog with Hexo on Ubuntu 16.04
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -581,6 +461,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -600,8 +484,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/julia.JPG"
@@ -674,6 +567,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Installing-tools"><span class="nav-number">1.</span> <span class="nav-text">Installing tools</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Booting-xv6"><span class="nav-number">2.</span> <span class="nav-text">Booting xv6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Before-entering-bootmain"><span class="nav-number">2.1.</span> <span class="nav-text">Before entering bootmain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Executing-bootmain"><span class="nav-number">2.2.</span> <span class="nav-text">Executing bootmain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Entering-kernel"><span class="nav-number">2.3.</span> <span class="nav-text">Entering kernel</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell"><span class="nav-number">3.</span> <span class="nav-text">Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Reading-notes"><span class="nav-number">3.1.</span> <span class="nav-text">Reading notes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coding-notes"><span class="nav-number">3.2.</span> <span class="nav-text">Coding notes</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>
@@ -779,6 +688,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 

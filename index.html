@@ -246,6 +246,147 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/02/12/lab1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yangbo Long">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/julia.JPG">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yangbo's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yangbo's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/12/lab1/" itemprop="url">
+                  MIT 6.828 Lab1 - Booting a PC (PC Bootstrap & Bootloader)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-12T13:26:17-05:00">
+                2017-02-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MOOC/" itemprop="url" rel="index">
+                    <span itemprop="name">MOOC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Boot-up procedure: ROM BIOS -&gt; Boot Loader -&gt; Kernel.</p>
+<p>BIOS sets up an interrupt descriptor table and initializes various devices such as the VGA display. After initializing the PCI bus and all the important devices, it searches for a bootable device and loads the 512 byte boot sector into memory at physical addresses 0x7c00 through 0x7dff, and then uses a <code>jmp</code> instruction to set the CS:IP to 0000:7c00, passing control to the boot loader.</p>
+<p>The boot loader switches the processor from real mode to 32-bit protected mode. It also reads the kernel from the hard disk by directly accesing the disk device registers via the x86’s special I/O instructions. Then it transfers control to the kernel.</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/02/12/lab1/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2016/12/22/boot-xv6-shell/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -272,7 +413,7 @@
               
                 
                 <a class="post-title-link" href="/2016/12/22/boot-xv6-shell/" itemprop="url">
-                  MIT 6.828 HW Boot xv6 & Shell
+                  MIT 6.828 HW - Boot xv6 & Shell
                 </a>
               
             
@@ -341,52 +482,19 @@
 
       
         
-          
-            <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw" target="_blank" rel="external">here</a>.</p>
+          <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw">here</a>.</p>
 <h1 id="Installing-tools"><a href="#Installing-tools" class="headerlink" title="Installing tools"></a>Installing tools</h1><ul>
 <li>Use <code>make &amp;&amp; sudo make install</code> to compile QEMU, to avoid any permission error.</li>
 <li>There is a <code>auto-loading</code> warning when launching GDB for the first time. Add a line to the <code>.gdbinit</code> file according to the info below:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">warning: File &quot;/home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit&quot; auto-loading has been declined by your `auto-load safe-path&apos; set to &quot;$debugdir:$datadir/auto-load&quot;.</div><div class="line">To enable execution of this file add</div><div class="line">    add-auto-load-safe-path /home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.</div><div class="line">To completely disable this security protection add</div><div class="line">    set auto-load safe-path /</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.`</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h1 id="Booting-xv6"><a href="#Booting-xv6" class="headerlink" title="Booting xv6"></a>Booting xv6</h1><p>8086 can reference up to 1 MB memory, in which</p>
-<ul>
-<li>DRAM: 0x00000 - 0x9FFFF, 640K;</li>
-<li>BIOS ROM: 0xF0000 - 0xFFFFF, 64KB;</li>
-<li>Peripherals: 0xA0000 - 0xEFFFF, 320K (Graphic memory mapping: 0xB8000 - 0xBFFFF).</li>
-</ul>
-<p>Find the address of <code>_start</code>, the entry point of the kernel:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ nm kernel | grep _start</div><div class="line">8010a48c D _binary_entryother_start</div><div class="line">8010a460 D _binary_initcode_start</div><div class="line">0010000c T _start</div></pre></td></tr></table></figure></p>
-<h2 id="Before-entering-bootmain"><a href="#Before-entering-bootmain" class="headerlink" title="Before entering bootmain"></a>Before entering bootmain</h2><p>The very first instruction that the CPU executes upon power-up is a <code>jump</code> instruction stored in ROM. The BIOS will load the 512-byte boot sector, which was stored in the first sector of hard disk, into memory at physical addresses 0x7c00 through 0x7dff. Next, it’s the time to execute the boot loader code (switch from real mode to protected mode) and enter the kernel, which takes charge of everything finally.</p>
-<p><img src="/images/hw1.0.png" alt=""></p>
-<p>As shown in the above image, at the entry point of <code>0x7c00</code> the system is still under the real mode, with <code>SS = 0</code> and the stack pointer <code>ESP</code> points to an address below <code>0x7c00</code>.</p>
-<p>When the program halts right before calling routine bootmain, it can be found that the system has entered the protected mode which is indicated by the <code>SS = 0x10</code> in the picture below. <code>ESP</code> is also initialized to be <code>0x7c00</code> right before entering bootmain.</p>
-<p><img src="/images/hw1.1.png" alt=""></p>
-<p>When routine bootmain is called, the <code>call bootmain</code> instruction saves the return address (<code>0x7c4d</code>) to stack. In the case of a function call with arguments, all arguments will also be saved into stack. As of now, the memory structure can be depicted as below.</p>
-<p><img src="/images/hw1.4.png" alt=""></p>
-<h2 id="Executing-bootmain"><a href="#Executing-bootmain" class="headerlink" title="Executing bootmain"></a>Executing bootmain</h2><p>In bootblock.asm, the first instruction of bootmain, <code>push %ebp</code>, saves the frame pointer <code>EBP</code> to stack, which is usually used to fetch function arguments in stack during a function call.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">void</div><div class="line">bootmain(void)</div><div class="line">&#123;</div><div class="line">    7d3b:   55                      push   %ebp</div><div class="line">    7d3c:   89 e5                   mov    %esp,%ebp</div></pre></td></tr></table></figure>
-<p>The stack content look like below after saving <code>EBP</code>. Note that the stack top address decreases when new elements are pushed into stack.</p>
-<p><img src="/images/hw1.2.png" alt=""></p>
-<h2 id="Entering-kernel"><a href="#Entering-kernel" class="headerlink" title="Entering kernel"></a>Entering kernel</h2><p>The C function <code>entry()</code> in bootmain.c enters the kernel code and starts kernel execution, which is the main purpose of bootmain. The compiled assembly instructions below shows that the entry address of kernel was saved at the address <code>0x10018</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// Call the entry point from the ELF header.</div><div class="line">// Does not return!</div><div class="line">entry = (void(*)(void))(elf-&gt;entry);</div><div class="line">entry();</div><div class="line">7dae:   ff 15 18 00 01 00       call   *0x10018</div></pre></td></tr></table></figure></p>
-<p>When the program jumps to kernel code address <code>0x10000c</code>, the return address of the C function call <code>entry()</code> is also saved to stack as shown in the picture below.</p>
-<p><img src="/images/hw1.3.png" alt=""></p>
-<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><h2 id="Reading-notes"><a href="#Reading-notes" class="headerlink" title="Reading notes"></a>Reading notes</h2><p>While reading Chapter 0 of the <a href="https://pdos.csail.mit.edu/6.828/2016/xv6/book-rev9.pdf" target="_blank" rel="external">xv6 book</a>, some brief notes were taken as below.</p>
-<ul>
-<li><p><code>fork</code> and <code>exec</code> are not combined in a single call, to allow the child process to redirect I/O before it runs the program. For example,</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123;</div><div class="line">    close(<span class="number">0</span>);</div><div class="line">    open(<span class="string">"input.txt"</span>, O_RDONLY);</div><div class="line">    exec(<span class="string">"cat"</span>, argv);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>The dup system call duplicates an existing file descriptor, returning a new one that refers to the same underlying I/O object.</p>
-</li>
-<li><p>It’s important for the child to close the write end of the pipe before executing wc below, just in case the fd of wc referred to the write end of the pipe and never receives EOF.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> p[<span class="number">2</span>];</div><div class="line"><span class="keyword">char</span> *argv[<span class="number">2</span>];</div><div class="line">argv[<span class="number">0</span>] = <span class="string">"wc"</span>;</div><div class="line">argv[<span class="number">1</span>] = <span class="number">0</span>;</div><div class="line">pipe(p); <span class="comment">// creates a pipe and records the read and write fds in p</span></div><div class="line"><span class="keyword">if</span>(fork() == <span class="number">0</span>) &#123; <span class="comment">// child</span></div><div class="line">    close(<span class="number">0</span>);</div><div class="line">    dup(p[<span class="number">0</span>]); <span class="comment">// dups the read end onto fd 0</span></div><div class="line">    close(p[<span class="number">0</span>]);</div><div class="line">    close(p[<span class="number">1</span>]); <span class="comment">// closes fds in p</span></div><div class="line">    exec(<span class="string">"/bin/wc"</span>, argv); <span class="comment">// executes wc</span></div><div class="line">&#125; <span class="keyword">else</span> &#123; <span class="comment">// parent</span></div><div class="line">    close(p[<span class="number">0</span>]); <span class="comment">// closes the read side of the pipe</span></div><div class="line">    write(p[<span class="number">1</span>], <span class="string">"hello world\n"</span>, <span class="number">12</span>);</div><div class="line">    close(p[<span class="number">1</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p><code>cd</code> is a special shell command. It doesn’t fork a child process, but change the current working directory of the shell itself. Other shell commands fork child processes when they run.</p>
-</li>
-</ul>
-<h2 id="Coding-notes"><a href="#Coding-notes" class="headerlink" title="Coding notes"></a>Coding notes</h2><p>Unlike a OOP language, there is no object inheritance in the C language. The way to construct class-inheritance-like structures in C is shown as below code snippet.</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cmd &#123;           <span class="comment">// act like a base class to be inherited by various commands</span></div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">//  ' ' (exec), | (pipe), '&lt;' or '&gt;' for redirection</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> execcmd &#123;</div><div class="line">    <span class="keyword">int</span> type;              <span class="comment">// ' '</span></div><div class="line">    <span class="keyword">char</span> *argv[MAXARGS];   <span class="comment">// arguments to the command to be exec-ed</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> redircmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// &lt; or &gt;</span></div><div class="line">    <span class="keyword">struct</span> cmd *cmd;   <span class="comment">// the command to be run (e.g., an execcmd)</span></div><div class="line">    <span class="keyword">char</span> *file;        <span class="comment">// the input/output file</span></div><div class="line">    <span class="keyword">int</span> mode;          <span class="comment">// the mode to open the file with</span></div><div class="line">    <span class="keyword">int</span> fd;            <span class="comment">// the file descriptor number to use for the file</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> pipecmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// |</span></div><div class="line">    <span class="keyword">struct</span> cmd *left;  <span class="comment">// left side of pipe</span></div><div class="line">    <span class="keyword">struct</span> cmd *right; <span class="comment">// right side of pipe</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><code>execcmd</code> means the commands that can be executed directly, without I/O redirection and pipes etc. More details about the structure and logic of the <code>sh.c</code> program can be seen in my <a href="https://github.com/YangboLong/MIT6.828/blob/master/hw/hw2/sh.c" target="_blank" rel="external">solution</a>.</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/22/boot-xv6-shell/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -463,7 +571,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-18T19:07:31-05:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-18T11:51:34-05:00">
                 2016-12-18
               </time>
             
@@ -518,32 +626,18 @@
 
       
         
-          
-            <p>This very first blog article introduces how to deploy Hexo with Github. For detailed information about Hexo, see the official <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">document</a> page.</p>
+          <p>This very first blog article introduces how to deploy Hexo with Github. For detailed information about Hexo, see the official <a href="https://hexo.io/zh-cn/docs/">document</a> page.</p>
 <h2 id="Installing-Nodejs"><a href="#Installing-Nodejs" class="headerlink" title="Installing Nodejs"></a>Installing Nodejs</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl <span class="_">-s</span>L https://deb.nodesource.com/setup_4.x | sudo -E bash -</div><div class="line">$ sudo apt-get install -y nodejs</div></pre></td></tr></table></figure>
 <h2 id="Installing-npm-and-Hexo"><a href="#Installing-npm-and-Hexo" class="headerlink" title="Installing npm and Hexo"></a>Installing npm and Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt install npm</div><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
 <p>After the installation of Hexo, create a <code>blog</code> folder under the <code>home</code> directory.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ <span class="built_in">cd</span> blog/</div><div class="line">$ npm install</div><div class="line">$ hexo -v</div></pre></td></tr></table></figure>
-<p>Check how the page looks like by running the command below and then open the generated link in a web browser.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo s --debug</div></pre></td></tr></table></figure>
-<h2 id="Setting-up-Hexo-themes"><a href="#Setting-up-Hexo-themes" class="headerlink" title="Setting up Hexo themes"></a>Setting up Hexo themes</h2><p>My preferred theme was downloaded from below:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/blog</div><div class="line">$ git <span class="built_in">clone</span> https://github.com/iissnan/hexo-theme-next themes/next</div></pre></td></tr></table></figure>
-<p>More settings about the NexT theme can be found <a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="external">here</a>.</p>
-<h2 id="Configuring-Github-and-Hexo"><a href="#Configuring-Github-and-Hexo" class="headerlink" title="Configuring Github and Hexo"></a>Configuring Github and Hexo</h2><ul>
-<li>Create a new repository on Github and name it to be <code>YangboLong.github.io</code></li>
-<li><p>Generate a new SSH key:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"your_email@example.com"</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Add the SSH key to your Github account: <a href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/" target="_blank" rel="external">add key</a></p>
-</li>
-<li>Edit <code>_config.yml</code> in the directory of <code>~/blog</code></li>
-<li>Run the following command:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="Setting-up-deployment"><a href="#Setting-up-deployment" class="headerlink" title="Setting up deployment"></a>Setting up deployment</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean</div><div class="line">$ hexo generate</div><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>Now, my first blog is up and running. Enjoy!</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/18/hexo-git/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -612,7 +706,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">3</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -688,8 +782,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

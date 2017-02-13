@@ -342,7 +342,7 @@
       
         
           <p>Boot-up procedure: ROM BIOS -&gt; Boot Loader -&gt; Kernel.</p>
-<p>BIOS sets up an interrupt descriptor table and initializes various devices such as the VGA display. After initializing the PCI bus and all the important devices, it searches for a bootable device and loads the 512 byte boot sector into memory at physical addresses 0x7c00 through 0x7dff, and then uses a <code>jmp</code> instruction to set the CS:IP to 0000:7c00, passing control to the boot loader.</p>
+<p>BIOS sets up an interrupt descriptor table and initializes various devices such as the VGA display. After initializing the PCI bus and all the important devices, it searches for a bootable device and loads the 512 byte boot sector into memory at physical addresses <code>0x7c00</code> through <code>0x7dff</code>, and then uses a <code>jmp</code> instruction to set the <code>CS:IP</code> to <code>0000:7c00</code>, passing control to the boot loader.</p>
 <p>The boot loader switches the processor from real mode to 32-bit protected mode. It also reads the kernel from the hard disk by directly accesing the disk device registers via the x86’s special I/O instructions. Then it transfers control to the kernel.</p>
           <!--noindex-->
           <div class="post-more-link text-center">

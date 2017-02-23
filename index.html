@@ -246,6 +246,145 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/02/18/lab2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yangbo Long">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/julia.JPG">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yangbo's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yangbo's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/02/18/lab2/" itemprop="url">
+                  MIT 6.828 Lab2 - Memory Management
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-18T11:48:35-05:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MOOC/" itemprop="url" rel="index">
+                    <span itemprop="name">MOOC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>The first PCs, which were based on the 16-bit Intel 8088 processor, were only capable of addressing 1MB of physical memory. The physical address space of an early PC would therefore start at <code>0x00000000</code> but end at <code>0x000FFFFF</code> instead of <code>0xFFFFFFFF</code>. The 640KB area marked “Low/Base Memory” was the only random-access memory (RAM) that an early PC could use.</p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/02/18/lab2/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/02/13/lab1-cont/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -621,7 +760,7 @@
 
       
         
-          <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw">here</a>.</p>
+          <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.868_HW_Doc/tree/master/hw">here</a>.</p>
 <h1 id="Installing-tools"><a href="#Installing-tools" class="headerlink" title="Installing tools"></a>Installing tools</h1><ul>
 <li>Use <code>make &amp;&amp; sudo make install</code> to compile QEMU, to avoid any permission error.</li>
 <li>There is a <code>auto-loading</code> warning when launching GDB for the first time. Add a line to the <code>.gdbinit</code> file according to the info below:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">warning: File &quot;/home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit&quot; auto-loading has been declined by your `auto-load safe-path&apos; set to &quot;$debugdir:$datadir/auto-load&quot;.</div><div class="line">To enable execution of this file add</div><div class="line">    add-auto-load-safe-path /home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.</div><div class="line">To completely disable this security protection add</div><div class="line">    set auto-load safe-path /</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.`</div></pre></td></tr></table></figure>
@@ -767,9 +906,6 @@
         
           <p>This very first blog article introduces how to deploy Hexo with Github. For detailed information about Hexo, see the official <a href="https://hexo.io/zh-cn/docs/">document</a> page.</p>
 <h2 id="Installing-Nodejs"><a href="#Installing-Nodejs" class="headerlink" title="Installing Nodejs"></a>Installing Nodejs</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ curl <span class="_">-s</span>L https://deb.nodesource.com/setup_4.x | sudo -E bash -</div><div class="line">$ sudo apt-get install -y nodejs</div></pre></td></tr></table></figure>
-<h2 id="Installing-npm-and-Hexo"><a href="#Installing-npm-and-Hexo" class="headerlink" title="Installing npm and Hexo"></a>Installing npm and Hexo</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo apt install npm</div><div class="line">$ npm install -g hexo-cli</div></pre></td></tr></table></figure>
-<p>After the installation of Hexo, create a <code>blog</code> folder under the <code>home</code> directory.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ hexo init blog</div><div class="line">$ <span class="built_in">cd</span> blog/</div><div class="line">$ npm install</div><div class="line">$ hexo -v</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/12/18/hexo-git/#more" rel="contents">
@@ -845,7 +981,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

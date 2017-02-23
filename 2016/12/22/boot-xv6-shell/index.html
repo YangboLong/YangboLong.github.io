@@ -101,7 +101,7 @@ There is a auto-loading warning when launch">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.4.png">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.2.png">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.3.png">
-<meta property="og:updated_time" content="2017-01-23T00:54:05.960Z">
+<meta property="og:updated_time" content="2017-02-18T16:53:03.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT 6.828 HW - Boot xv6 & Shell">
 <meta name="twitter:description" content="The homework solutions of mine were uploaded to here.
@@ -354,7 +354,7 @@ There is a auto-loading warning when launch">
       
 
       
-        <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.828/tree/master/hw" target="_blank" rel="external">here</a>.</p>
+        <p>The homework solutions of mine were uploaded to <a href="https://github.com/YangboLong/MIT6.868_HW_Doc/tree/master/hw" target="_blank" rel="external">here</a>.</p>
 <h1 id="Installing-tools"><a href="#Installing-tools" class="headerlink" title="Installing tools"></a>Installing tools</h1><ul>
 <li>Use <code>make &amp;&amp; sudo make install</code> to compile QEMU, to avoid any permission error.</li>
 <li>There is a <code>auto-loading</code> warning when launching GDB for the first time. Add a line to the <code>.gdbinit</code> file according to the info below:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">warning: File &quot;/home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit&quot; auto-loading has been declined by your `auto-load safe-path&apos; set to &quot;$debugdir:$datadir/auto-load&quot;.</div><div class="line">To enable execution of this file add</div><div class="line">    add-auto-load-safe-path /home/ylong/Desktop/hobby_project/abc/MIT/6.828/xv6-public/.gdbinit</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.</div><div class="line">To completely disable this security protection add</div><div class="line">    set auto-load safe-path /</div><div class="line">line to your configuration file &quot;/home/ylong/.gdbinit&quot;.`</div></pre></td></tr></table></figure>
@@ -397,7 +397,7 @@ There is a auto-loading warning when launch">
 </ul>
 <h2 id="Coding-notes"><a href="#Coding-notes" class="headerlink" title="Coding notes"></a>Coding notes</h2><p>Unlike a OOP language, there is no object inheritance in the C language. The way to construct class-inheritance-like structures in C is shown as below code snippet.</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cmd &#123;           <span class="comment">// act like a base class to be inherited by various commands</span></div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">//  ' ' (exec), | (pipe), '&lt;' or '&gt;' for redirection</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> execcmd &#123;</div><div class="line">    <span class="keyword">int</span> type;              <span class="comment">// ' '</span></div><div class="line">    <span class="keyword">char</span> *argv[MAXARGS];   <span class="comment">// arguments to the command to be exec-ed</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> redircmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// &lt; or &gt;</span></div><div class="line">    <span class="keyword">struct</span> cmd *cmd;   <span class="comment">// the command to be run (e.g., an execcmd)</span></div><div class="line">    <span class="keyword">char</span> *file;        <span class="comment">// the input/output file</span></div><div class="line">    <span class="keyword">int</span> mode;          <span class="comment">// the mode to open the file with</span></div><div class="line">    <span class="keyword">int</span> fd;            <span class="comment">// the file descriptor number to use for the file</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> pipecmd &#123;</div><div class="line">    <span class="keyword">int</span> type;          <span class="comment">// |</span></div><div class="line">    <span class="keyword">struct</span> cmd *left;  <span class="comment">// left side of pipe</span></div><div class="line">    <span class="keyword">struct</span> cmd *right; <span class="comment">// right side of pipe</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><code>execcmd</code> means the commands that can be executed directly, without I/O redirection and pipes etc. More details about the structure and logic of the <code>sh.c</code> program can be seen in my <a href="https://github.com/YangboLong/MIT6.828/blob/master/hw/hw2/sh.c" target="_blank" rel="external">solution</a>.</p>
+<p><code>execcmd</code> means the commands that can be executed directly, without I/O redirection and pipes etc. More details about the structure and logic of the <code>sh.c</code> program can be seen in my <a href="https://github.com/YangboLong/MIT6.868_HW_Doc/blob/master/hw/hw2/sh.c" target="_blank" rel="external">solution</a>.</p>
 
       
     </div>
@@ -510,7 +510,7 @@ There is a auto-loading warning when launch">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">5</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

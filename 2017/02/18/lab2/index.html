@@ -1,0 +1,693 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MIT6.828," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="The first PCs, which were based on the 16-bit Intel 8088 processor, were only capable of addressing 1MB of physical memory. The physical address space of an early PC would therefore start at 0x0000000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT 6.828 Lab2 - Memory Management">
+<meta property="og:url" content="https://yangbolong.github.io/2017/02/18/lab2/index.html">
+<meta property="og:site_name" content="Yangbo's Blog">
+<meta property="og:description" content="The first PCs, which were based on the 16-bit Intel 8088 processor, were only capable of addressing 1MB of physical memory. The physical address space of an early PC would therefore start at 0x0000000">
+<meta property="og:image" content="https://yangbolong.github.io/images/lab2.mm.png">
+<meta property="og:image" content="https://yangbolong.github.io/images/lab2.pgt.png">
+<meta property="og:updated_time" content="2017-02-23T02:40:33.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MIT 6.828 Lab2 - Memory Management">
+<meta name="twitter:description" content="The first PCs, which were based on the 16-bit Intel 8088 processor, were only capable of addressing 1MB of physical memory. The physical address space of an early PC would therefore start at 0x0000000">
+<meta name="twitter:image" content="https://yangbolong.github.io/images/lab2.mm.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangbolong.github.io/2017/02/18/lab2/"/>
+
+
+
+
+
+  <title> MIT 6.828 Lab2 - Memory Management | Yangbo's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yangbo's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Who can unravel the woes of mine; I know but one man, the God of Wine.</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/02/18/lab2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yangbo Long">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/julia.JPG">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yangbo's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yangbo's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MIT 6.828 Lab2 - Memory Management
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-18T11:48:35-05:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MOOC/" itemprop="url" rel="index">
+                    <span itemprop="name">MOOC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>The first PCs, which were based on the 16-bit Intel 8088 processor, were only capable of addressing 1MB of physical memory. The physical address space of an early PC would therefore start at <code>0x00000000</code> but end at <code>0x000FFFFF</code> instead of <code>0xFFFFFFFF</code>. The 640KB area marked “Low/Base Memory” was the only random-access memory (RAM) that an early PC could use.</p>
+<a id="more"></a>
+<h1 id="PC’s-Physical-Address-Space"><a href="#PC’s-Physical-Address-Space" class="headerlink" title="PC’s Physical Address Space"></a>PC’s Physical Address Space</h1><p>A PC’s physical address space is hard-wired to have the following general layout:<br><img src="/images/lab2.mm.png" alt=""></p>
+<p>The 384KB area from <code>0x000A0000</code> through <code>0x000FFFFF</code> was reserved by the hardware for special uses such as video display buffers and firmware held in non-volatile memory. The most important part of this reserved area is the Basic Input/Output System (BIOS), which occupies the 64KB region from <code>0x000F0000</code> through <code>0x000FFFFF</code>. In early PCs the BIOS was held in true read-only memory (ROM), but current PCs store the BIOS in updateable flash memory. The BIOS is responsible for performing basic system initialization such as activating the video card and checking the amount of memory installed. After performing this initialization, the BIOS loads the operating system from some appropriate location such as floppy disk, hard disk, CD-ROM, or the network, and passes control of the machine to the operating system.</p>
+<p>When Intel finally “broke the one megabyte barrier” with the 80286 and 80386 processors, which supported 16MB and 4GB physical address spaces respectively, the PC architects nevertheless preserved the original layout for the low 1MB of physical address space in order to ensure backward compatibility with existing software. Modern PCs therefore have a “hole” in physical memory from <code>0x000A0000</code> to <code>0x00100000</code>, dividing RAM into “low” or “conventional memory” (the first 640KB) and “extended memory” (everything else). In addition, some space at the very top of the PC’s 32-bit physical address space, above all physical RAM, is now commonly reserved by the BIOS for use by 32-bit PCI devices. Recent x86 processors can support more than 4GB of physical RAM, so RAM can extend further above <code>0xFFFFFFFF</code>. In this case the BIOS must arrange to leave a second hole in the system’s RAM at the top of the 32-bit addressable region, to leave room for these 32-bit devices to be mapped.</p>
+<h1 id="Memory-Management"><a href="#Memory-Management" class="headerlink" title="Memory Management"></a>Memory Management</h1><p>For 32-bit architecture PCs, there are two stages of memory management:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">1. Segment-based memory management:</div><div class="line">    Allocate =&gt; segments</div><div class="line">    Arbitrate =&gt; segment registers</div><div class="line">2. Page-based memory management:</div><div class="line">    Allocate =&gt; pages -&gt; page frames</div><div class="line">    Arbitrate =&gt; page tables</div></pre></td></tr></table></figure></p>
+<p>The calculation of the single-level/flat page table size:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- Page table entry (PTE) =&gt; 4 bytes, including PFN (physical page frame number) and flags</div><div class="line">- Virtual page number (VPN) =&gt; 2^32 / page_size</div><div class="line">- Page size =&gt; 4KB</div><div class="line">page_table_size = (2^32 / 2^12) * 4B = 4MB per process, consumes lots of memory</div></pre></td></tr></table></figure></p>
+<p>Adding levels to the address translation process (hierarchical page tables) will reduce the size of the page tables. But it will add some overheads to the address translation process.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Flat page table:</div><div class="line">- x1 accesses to page table entries</div><div class="line">- x1 access to memory</div><div class="line">2-level page table:</div><div class="line">- x2 accesses to page table entries</div><div class="line">- x1 access to memory</div></pre></td></tr></table></figure></p>
+<p>The image below summarizes both phases of the transformation from a logical address to a physical address when paging is enabled. The page translation mechanism uses 2-level page tables to converts the <code>Dir</code>, <code>Table</code>, and <code>Offset</code> fields of a linear address into the physical address:<br><img src="/images/lab2.pgt.png" alt=""></p>
+<p>The addressing mechanism uses the <code>Dir</code> field as an index into a page directory, uses the <code>Table</code> field as an index into the page table determined by the page directory, and uses the <code>Offset</code> field to address a byte within the page determined by the page table. The physical page number (PPN) specifies the physical starting address of a page. Because pages are located on 4K boundaries, the low-order 12 bits (from bit 12 to bit 23) are always zero. <strong>In a page directory, the PPN is the address of a page table. In a second-level page table, the PPN is the address of the physical page frame that contains the desired memory operand.</strong></p>
+<h1 id="Exercises"><a href="#Exercises" class="headerlink" title="Exercises"></a>Exercises</h1><p>The solution code for the exercises of Lab 2 can be found <a href="https://github.com/YangboLong/MIT6.828_Lab/tree/lab2" target="_blank" rel="external">here</a>.</p>
+<h2 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise 1"></a>Exercise 1</h2><p>When implementing the <code>page_init</code> function, it’s worth mentioning that the page tables were not allocated to physical memory address <code>UTEMP</code> (defined in <code>inc/memlayout.h</code>); instead, because in function <code>mem_init</code> the page directories and page tables were allocated using function <code>boot_alloc</code>, therefore, simply using <code>boot_alloc(0)</code> can point to the first free page after the memory chunk that stores page tables.</p>
+<h2 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise 2"></a>Exercise 2</h2><p>For details about the segmentation mechanism, read the 10th and 11th chapters of book <code>x86 Assembly Language - from Real Mode to Protected Mode</code>. The paging machanism can be learnt from the lesson <a href="https://classroom.udacity.com/courses/ud923/lessons/3399758763/concepts/34022388000923#" target="_blank" rel="external">P3L2: Memory Management</a> of the online Udacity course <code>Introduction to Operating System</code>, as well as the <a href="https://pdos.csail.mit.edu/6.828/2016/readings/i386/s05_02.htm" target="_blank" rel="external">Intel 30386 Reference Manual</a>.</p>
+<h2 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3"></a>Exercise 3</h2><p>Inspect memory at corresponding physical (in <code>QEMU</code> monitor) and virtual addresses (in <code>GDB</code>):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">(qemu) x/16x 0x100000</div><div class="line">00100000: 0x1badb002 0x00000000 0xe4524ffe 0x7205c766</div><div class="line">00100010: 0x34000004 0x2000b812 0x220f0011 0xc0200fd8</div><div class="line">00100020: 0x0100010d 0xc0220f80 0x10002fb8 0xbde0fff0</div><div class="line">00100030: 0x00000000 0x112000bc 0x0002e8f0 0xfeeb0000</div><div class="line"></div><div class="line">(gdb) x/16x 0xf0100000</div><div class="line">0xf0100000 &lt;_start+4026531828&gt;: 0x1badb002  0x00000000  0xe4524ffe  0x7205c766</div><div class="line">0xf0100010 &lt;entry+4&gt;:           0x34000004  0x2000b812  0x220f0011  0xc0200fd8</div><div class="line">0xf0100020 &lt;entry+20&gt;:          0x0100010d  0xc0220f80  0x10002fb8  0xbde0fff0</div><div class="line">0xf0100030 &lt;relocated+1&gt;:       0x00000000  0x112000bc  0x0002e8f0  0xfeeb0000</div></pre></td></tr></table></figure></p>
+<p>Inspect detailed representation of the current page tables in <code>QEMU</code> monitor:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">(qemu) info pg</div><div class="line">VPN range      Entry        Flags      Physical page</div><div class="line">[00000-003ff]  PDE[000]     ----A----P</div><div class="line">[00000-00000]  PTE[000]     --------WP 00000</div><div class="line">[00001-0009f]  PTE[001-09f] ---DA---WP 00001-0009f</div><div class="line">[000a0-000b7]  PTE[0a0-0b7] --------WP 000a0-000b7</div><div class="line">[000b8-000b8]  PTE[0b8]     ---DA---WP 000b8</div><div class="line">[000b9-000ff]  PTE[0b9-0ff] --------WP 000b9-000ff</div><div class="line">[00100-00102]  PTE[100-102] ----A---WP 00100-00102</div><div class="line">[00103-00110]  PTE[103-110] --------WP 00103-00110</div><div class="line">[00111-00111]  PTE[111]     ---DA---WP 00111</div><div class="line">[00112-00113]  PTE[112-113] --------WP 00112-00113</div><div class="line">[00114-003ff]  PTE[114-3ff] ---DA---WP 00114-003ff</div><div class="line">[f0000-f03ff]  PDE[3c0]     ----A---WP</div><div class="line">[f0000-f0000]  PTE[000]     --------WP 00000</div><div class="line">[f0001-f009f]  PTE[001-09f] ---DA---WP 00001-0009f</div><div class="line">[f00a0-f00b7]  PTE[0a0-0b7] --------WP 000a0-000b7</div><div class="line">[f00b8-f00b8]  PTE[0b8]     ---DA---WP 000b8</div><div class="line">[f00b9-f00ff]  PTE[0b9-0ff] --------WP 000b9-000ff</div><div class="line">[f0100-f0102]  PTE[100-102] ----A---WP 00100-00102</div><div class="line">[f0103-f0110]  PTE[103-110] --------WP 00103-00110</div><div class="line">[f0111-f0111]  PTE[111]     ---DA---WP 00111</div><div class="line">[f0112-f0113]  PTE[112-113] --------WP 00112-00113</div><div class="line">[f0114-f03ff]  PTE[114-3ff] ---DA---WP 00114-003ff</div></pre></td></tr></table></figure></p>
+<p>Show ranges of virtual memory that are mapped and their permissions in <code>QEMU</code> monitor:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(qemu) info mem</div><div class="line">0000000000000000-0000000000400000 0000000000400000 -r-</div><div class="line">00000000f0000000-00000000f0400000 0000000000400000 -rw</div></pre></td></tr></table></figure></p>
+<p><code>Ctrl-a c</code> is used to switch beween the <code>QEMU</code> serial console and monitor.<br><code>Ctrl-a x</code> is used to exit <code>QEMU</code>.</p>
+<h2 id="Exercise-4"><a href="#Exercise-4" class="headerlink" title="Exercise 4"></a>Exercise 4</h2><p>It’s important to understand that the <code>page_alloc</code> in <code>pgdir_walk</code> allocates a page, in other words, it creates a page table, so <code>page2pa(pp)</code> in <code>pgdir_walk</code> returns the page table’s address. However, the function argument <code>pp</code> in <code>page_insert</code> represents a physical page frame, therefore the <code>page2pa(pp)</code> in function <code>page_insert</code> returns the page frame’s address.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MIT6-828/" rel="tag"># MIT6.828</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/13/lab1-cont/" rel="next" title="MIT 6.828 Lab1 - Booting a PC (The Kernel)">
+                <i class="fa fa-chevron-left"></i> MIT 6.828 Lab1 - Booting a PC (The Kernel)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/julia.JPG"
+               alt="Yangbo Long" />
+          <p class="site-author-name" itemprop="name">Yangbo Long</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/YangboLong" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.linkedin.com/in/longyangbo" target="_blank" title="Linkedin">
+                  
+                    <i class="fa fa-fw fa-linkedin"></i>
+                  
+                  Linkedin
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PC’s-Physical-Address-Space"><span class="nav-number">1.</span> <span class="nav-text">PC’s Physical Address Space</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Memory-Management"><span class="nav-number">2.</span> <span class="nav-text">Memory Management</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exercises"><span class="nav-number">3.</span> <span class="nav-text">Exercises</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-1"><span class="nav-number">3.1.</span> <span class="nav-text">Exercise 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-2"><span class="nav-number">3.2.</span> <span class="nav-text">Exercise 2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-3"><span class="nav-number">3.3.</span> <span class="nav-text">Exercise 3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exercise-4"><span class="nav-number">3.4.</span> <span class="nav-text">Exercise 4</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yangbo Long</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

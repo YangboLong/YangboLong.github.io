@@ -91,7 +91,8 @@
 <meta property="og:site_name" content="Yangbo's Blog">
 <meta property="og:description" content="Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or excepti">
 <meta property="og:image" content="https://yangbolong.github.io/images/lab3.int.png">
-<meta property="og:updated_time" content="2017-03-12T21:13:35.361Z">
+<meta property="og:image" content="https://yangbolong.github.io/images/lab3.idtr.png">
+<meta property="og:updated_time" content="2017-03-12T21:16:29.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lab3 - User Environments">
 <meta name="twitter:description" content="Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or excepti">
@@ -365,6 +366,7 @@
 </ul>
 <p>The process of interrupt handling is shown as below:<br><img src="/images/lab3.int.png" alt=""></p>
 <p>The IDT’s address is defined by a 48-bit register IDTR, which stores the IDT base address (bit 16 - bit 47) and IDT limit (bit 0 - bit 15). An IDT entry is specified by the interrupt vector. For NMI and exceptions, the interrupt vector is given by the processor automatically; for hardware interrupts it’s given by the I/O interrupt control chips; for software interrupts it’s from the operands of interrupt instructions. When an interrupt/exception happens, the CPU times the interrupt vector by 8 (each IDT entry takes 8 bytes) to access IDT, and fetch the corresponding descriptor.</p>
+<p>The mechanism of the IDTR is shown as below:<br><img src="/images/lab3.idtr.png" alt=""></p>
 <p><strong>2.</strong> The Task State Segment. The processor needs a place to save the old processor state before the interrupt or exception occurred, such as the original values of EIP and CS before the processor invoked the exception handler, so that the exception handler can later restore that old state and resume the interrupted code from where it left off. But this save area for the old processor state must in turn be protected from unprivileged user-mode code; otherwise buggy or malicious user code could compromise the kernel.</p>
 <p>For this reason, when an x86 processor takes an interrupt or trap that causes a privilege level change from user to kernel mode, it also switches to a stack in the kernel’s memory. A structure called the task state segment (TSS) specifies the segment selector and address where this stack lives. The processor pushes (on this new stack) SS, ESP, EFLAGS, CS, EIP, and an optional error code. Then it loads the CS and EIP from the interrupt descriptor, and sets the ESP and SS to refer to the new stack.</p>
 <p>Details about how the TSS is used to protect the switching from user mode to kernel mode, and how are the stacks maintained during the process, can be found by reading the <a href="https://pdos.csail.mit.edu/6.828/2016/labs/lab3/#Exercise-3" target="_blank" rel="external">lab instruction page</a>, <code>Chapter 17</code> of book <code>x86 Assembly Language - from Real Mode to Protected Mode</code>, and <code>Chapter 9</code> of the <a href="https://pdos.csail.mit.edu/6.828/2016/readings/i386/s09_06.htm" target="_blank" rel="external">80386 Programmer’s Manual</a>.</p>

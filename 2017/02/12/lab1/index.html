@@ -94,7 +94,7 @@ BIOS sets up an interrupt descriptor table and initializes various devices such 
 BIOS sets up an interrupt descriptor table and initializes various devices such as the VGA display. After initializing the PCI bus and all t">
 <meta property="og:image" content="https://yangbolong.github.io/images/lab1.gdtr.jpg">
 <meta property="og:image" content="https://yangbolong.github.io/images/lab1.desentry.gif">
-<meta property="og:updated_time" content="2017-03-06T03:28:41.197Z">
+<meta property="og:updated_time" content="2017-03-12T21:13:33.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT 6.828 Lab1 - Booting a PC (PC Bootstrap & Bootloader)">
 <meta name="twitter:description" content="Boot-up procedure: ROM BIOS -&amp;gt; Boot Loader -&amp;gt; Kernel.
@@ -390,7 +390,7 @@ BIOS sets up an interrupt descriptor table and initializes various devices such 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">0xfd187:  ljmpl  $0x8, $0xfd18f</div><div class="line">0xfd18f:  mov  $0x10, %eax</div><div class="line">0xfd194:  mov  %eax, %ds</div><div class="line">0xfd196:  mov  %eax, %es</div><div class="line">0xfd198:  mov  %eax, %ss</div><div class="line">0xfd19a:  mov  %eax, %fs</div><div class="line">0xfd19c:  mov  %eax, %gs</div></pre></td></tr></table></figure>
 <ul>
 <li><code>0x8</code> and <code>0x10</code> are segment selectors, which are basically the indices of entries in the GDT.</li>
-<li>More info can be found in the 11th charpter of book <code>x86 Assembly Language - from Real Mode to Protected Mode</code>.</li>
+<li>More info can be found in the 11th chapter of book <code>x86 Assembly Language - from Real Mode to Protected Mode</code>.</li>
 </ul>
 <h1 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise 3"></a>Exercise 3</h1><p>Each ELF (Executable and Linkable Format) file is made up of one ELF header, followed by file data. The file data can include:</p>
 <ul>
@@ -521,7 +521,7 @@ BIOS sets up an interrupt descriptor table and initializes various devices such 
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

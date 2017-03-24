@@ -101,7 +101,7 @@ There is a auto-loading warning when launch">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.4.png">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.2.png">
 <meta property="og:image" content="https://yangbolong.github.io/images/hw1.3.png">
-<meta property="og:updated_time" content="2017-02-18T16:53:03.528Z">
+<meta property="og:updated_time" content="2017-03-19T22:37:55.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIT 6.828 HW - Boot xv6 & Shell">
 <meta name="twitter:description" content="The homework solutions of mine were uploaded to here.
@@ -371,7 +371,7 @@ There is a auto-loading warning when launch">
 <h2 id="Before-entering-bootmain"><a href="#Before-entering-bootmain" class="headerlink" title="Before entering bootmain"></a>Before entering bootmain</h2><p>The very first instruction that the CPU executes upon power-up is a <code>jump</code> instruction stored in ROM. The BIOS will load the 512-byte boot sector, which was stored in the first sector of hard disk, into memory at physical addresses 0x7c00 through 0x7dff. Next, it’s the time to execute the boot loader code (switching from real mode to protected mode) and enter the kernel, which takes charge of everything finally.</p>
 <p><img src="/images/hw1.0.png" alt=""></p>
 <p>As shown in the above image, at the entry point of <code>0x7c00</code> the system is still under the real mode, with <code>SS = 0</code> and the stack pointer <code>ESP</code> points to an address below <code>0x7c00</code>.</p>
-<p>When the program halts right before calling routine bootmain, it can be found that the system has entered the protected mode which is indicated by the <code>SS = 0x10</code> in the picture below. <code>ESP</code> is also initialized to be <code>0x7c00</code> right before entering bootmain.</p>
+<p>When the program halts right before calling routine bootmain, it can be found that the system has entered the protected mode which is indicated by the <code>SS = 0x10</code> in the picture below (in the protected mode, the content in a segment selector, for example <code>DS</code>, is no longer a segment address, but the index of a segment descriptor in the GDT). <code>ESP</code> is also initialized to be <code>0x7c00</code> right before entering bootmain.</p>
 <p><img src="/images/hw1.1.png" alt=""></p>
 <p>When routine bootmain is called, the <code>call bootmain</code> instruction saves the return address (<code>0x7c4d</code>) to stack. In the case of a function call with arguments, all arguments will also be saved into stack. As of now, the memory structure can be depicted as below.</p>
 <p><img src="/images/hw1.4.png" alt=""></p>
@@ -510,7 +510,7 @@ There is a auto-loading warning when launch">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -527,7 +527,7 @@ There is a auto-loading warning when launch">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

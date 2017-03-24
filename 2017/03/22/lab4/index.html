@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MIT6.828," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or excepti">
+<meta name="description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lab3 - User Environments">
-<meta property="og:url" content="https://yangbolong.github.io/2017/03/12/lab3/index.html">
+<meta property="og:title" content="lab4">
+<meta property="og:url" content="https://yangbolong.github.io/2017/03/22/lab4/index.html">
 <meta property="og:site_name" content="Yangbo's Blog">
-<meta property="og:description" content="Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or excepti">
-<meta property="og:image" content="https://yangbolong.github.io/images/lab3.int.png">
-<meta property="og:image" content="https://yangbolong.github.io/images/lab3.idtr.png">
-<meta property="og:updated_time" content="2017-03-12T21:16:29.342Z">
+<meta property="og:description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
+<meta property="og:updated_time" content="2017-03-22T15:37:59.980Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lab3 - User Environments">
-<meta name="twitter:description" content="Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or excepti">
-<meta name="twitter:image" content="https://yangbolong.github.io/images/lab3.int.png">
+<meta name="twitter:title" content="lab4">
+<meta name="twitter:description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
 
 
 
@@ -124,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://yangbolong.github.io/2017/03/12/lab3/"/>
+  <link rel="canonical" href="https://yangbolong.github.io/2017/03/22/lab4/"/>
 
 
 
 
 
-  <title> Lab3 - User Environments | Yangbo's Blog </title>
+  <title> lab4 | Yangbo's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -251,7 +248,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/03/12/lab3/">
+  <link itemprop="mainEntityOfPage" href="https://yangbolong.github.io/2017/03/22/lab4/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Yangbo Long">
@@ -275,7 +272,7 @@
             
             
               
-                Lab3 - User Environments
+                lab4
               
             
           </h1>
@@ -288,8 +285,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-12T15:56:40-04:00">
-                2017-03-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-22T16:20:04-04:00">
+                2017-03-22
               </time>
             
 
@@ -298,24 +295,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MOOC/" itemprop="url" rel="index">
-                    <span itemprop="name">MOOC</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -342,34 +321,11 @@
       
 
       
-        <p>Interrupts and exceptions are special kinds of control transfer; they work somewhat like unprogrammed CALLs. They alter the normal program flow to handle external events or to report errors or exceptional conditions. The difference between interrupts and exceptions is that interrupts are used to handle asynchronous events external to the processor, but exceptions handle conditions detected by the processor itself in the course of executing instructions.</p>
-<a id="more"></a>
-<p>There are two sources for external interrupts and two sources for exceptions:</p>
-<ol>
-<li>Interrupts<ul>
-<li>Maskable interrupts, which are signalled via the INTR pin.</li>
-<li>Nonmaskable interrupts, which are signalled via the NMI (Non-Maskable Interrupt) pin.</li>
-</ul>
-</li>
-<li>Exceptions<ul>
-<li>Processor detected. These are further classified as faults, traps, and aborts.</li>
-<li>Programmed. The instructions INTO, INT 3, INT n, and BOUND can trigger exceptions. These instructions are often called “software interrupts”, but the processor handles them as exceptions.</li>
-</ul>
-</li>
-</ol>
-<p>In order to ensure that these protected control transfers are actually protected, the processor’s interrupt/exception mechanism is designed so that the code currently running when the interrupt or exception occurs does not get to choose arbitrarily where the kernel is entered or how. Instead, the processor ensures that the kernel can be entered only under carefully controlled conditions. On the x86, two mechanisms work together to provide this protection:</p>
-<p><strong>1.</strong> The Interrupt Descriptor Table. The processor ensures that interrupts and exceptions can only cause the kernel to be entered at a few specific, well-defined entry-points determined by the kernel itself, and not by the code running when the interrupt or exception is taken.</p>
-<p>The x86 allows up to 256 different interrupt or exception entry points into the kernel, each with a different interrupt vector. A vector is a number between 0 and 255. An interrupt’s vector is determined by the source of the interrupt: different devices, error conditions, and application requests to the kernel generate interrupts with different vectors. The CPU uses the vector as an index into the processor’s interrupt descriptor table (IDT), which the kernel sets up in kernel-private memory, much like the GDT. From the appropriate entry in this table the processor loads:</p>
-<ul>
-<li>the value to load into the instruction pointer (EIP) register, pointing to the kernel code designated to handle that type of exception.</li>
-<li>the value to load into the code segment (CS) register, which includes in bits 0-1 the privilege level at which the exception handler is to run.</li>
-</ul>
-<p>The process of interrupt handling is shown as below:<br><img src="/images/lab3.int.png" alt=""></p>
-<p>The IDT’s address is defined by a 48-bit register IDTR, which stores the IDT base address (bit 16 - bit 47) and IDT limit (bit 0 - bit 15). An IDT entry is specified by the interrupt vector. For NMI and exceptions, the interrupt vector is given by the processor automatically; for hardware interrupts it’s given by the I/O interrupt control chips; for software interrupts it’s from the operands of interrupt instructions. When an interrupt/exception happens, the CPU times the interrupt vector by 8 (each IDT entry takes 8 bytes) to access IDT, and fetch the corresponding descriptor.</p>
-<p>The mechanism of the IDTR is shown as below:<br><img src="/images/lab3.idtr.png" alt=""></p>
-<p><strong>2.</strong> The Task State Segment. The processor needs a place to save the old processor state before the interrupt or exception occurred, such as the original values of EIP and CS before the processor invoked the exception handler, so that the exception handler can later restore that old state and resume the interrupted code from where it left off. But this save area for the old processor state must in turn be protected from unprivileged user-mode code; otherwise buggy or malicious user code could compromise the kernel.</p>
-<p>For this reason, when an x86 processor takes an interrupt or trap that causes a privilege level change from user to kernel mode, it also switches to a stack in the kernel’s memory. A structure called the task state segment (TSS) specifies the segment selector and address where this stack lives. The processor pushes (on this new stack) SS, ESP, EFLAGS, CS, EIP, and an optional error code. Then it loads the CS and EIP from the interrupt descriptor, and sets the ESP and SS to refer to the new stack.</p>
-<p>Details about how the TSS is used to protect the switching from user mode to kernel mode, and how are the stacks maintained during the process, can be found by reading the <a href="https://pdos.csail.mit.edu/6.828/2016/labs/lab3/#Exercise-3" target="_blank" rel="external">lab instruction page</a>, <code>Chapter 17</code> of book <code>x86 Assembly Language - from Real Mode to Protected Mode</code>, and <code>Chapter 9</code> of the <a href="https://pdos.csail.mit.edu/6.828/2016/readings/i386/s09_06.htm" target="_blank" rel="external">80386 Programmer’s Manual</a>.</p>
+        <p>Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose of macro MPBOOTPHYS? Why is it necessary in kern/mpentry.S but not in boot/boot.S? In other words, what could go wrong if it were omitted in kern/mpentry.S?<br>A1: Macro <code>MPBOOTPHYS</code> maps a virtual address (above KERNBASE) to be its physical address. It is needed because <code>mpentry.S</code> is linked at high addresses but gets loaded by <code>boot_aps()</code> at the low address <code>MPENTRY_ADDR</code>. The bootloader doesn’t need a macro like this because it is linked and loaded at the same low address (<code>0x00007c00</code>). You can verify this by running <code>objdump -h obj/boot/boot.out</code> and comparing the VMA and LMA columns.</p>
+<a id="more"></a>&gt;<br><br>Q2: It seems that using the big kernel lock guarantees that only one CPU can run the kernel code at a time. Why do we still need separate kernel stacks for each CPU? Describe a scenario in which using a shared kernel stack will go wrong, even with the protection of the big kernel lock.<br>A2: We still need separate stacks for each CPU because during a trap/interrupt, the trapframe is pushed onto the stack without holding the kernel lock (see <code>trapentry.S</code>). For example, when CPU 1 enters the kernel on a system call and while it is in the kernel, CPU 2 attempts to enter the kernel on a timer interrupt. CPU 2 can’t enter the kernel, it will be spinning at the lock we just added in <code>trap()</code>. However, it will have pushed its trap frame on top of the trap frame already pushed by CPU 1. This of course means that when CPU 1 returns to user mode, it will pop off CPU 2’s frame and return in that environment instead of its own.<br><br>After the implementation of <code>Exercise 6</code>, the code run into a triple fault when running <code>make qemu-nox</code>. It took me lots of time to finally figure this out. It was due to the problem when I was implementing <code>Exercise 4</code> the line below<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gdt[GD_TSS0 &gt;&gt; <span class="number">3</span>] = SEG16(STS_T32A, (<span class="keyword">uint32_t</span>) (&amp;ts),</div><div class="line">                <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Taskstate) - <span class="number">1</span>, <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<p>was incorrectly modified to below<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gdt[(GD_TSS0 &gt;&gt; <span class="number">3</span>) + i] = SEG16(STS_T32A, (<span class="keyword">uint32_t</span>) (thiscpu), <span class="comment">// should be "&amp;thiscpu-&gt;ts"</span></div><div class="line">                <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Taskstate) - <span class="number">1</span>, <span class="number">0</span>);</div></pre></td></tr></table></figure></p>
+<p>Q3: In your implementation of env_run() you should have called lcr3(). Before and after the call to lcr3(), your code makes references (at least it should) to the variable e, the argument to env_run. Upon loading the %cr3 register, the addressing context used by the MMU is instantly changed. But a virtual address (namely e) has meaning relative to a given address context–the address context specifies the physical address to which the virtual address maps. Why can the pointer e be dereferenced both before and after the addressing switch?<br>A3: The Env array <code>envs</code> is mapped to virtual address <code>UENVS</code> under page directories <code>kern_pgdir</code> in the function call <code>i386_init -&gt; mem_init</code>; The mappings are then copied to all new page directories <code>e-&gt;env_pgdir</code> through call chain <code>i386_init -&gt; ENV_CREATE -&gt; env_create -&gt; env_alloc -&gt; env_setup_vm</code>. The pointer <code>e</code> therefore can be dereferenced after the addressing switch although the addressing context has been changed.</p>
+<p>Q4: Whenever the kernel switches from one environment to another, it must ensure the old environment’s registers are saved so they can be restored properly later. Why? Where does this happen?<br>A4: The registers are saved on the user environment’s stack as part of the trapframe constructed by the <code>int</code> instruction and the code in <code>alltraps</code>. To restore the state of a new process, JOS uses the <code>env_pop_tf()</code> function, which switches first to the new process’ stack and the pops all the registers in place.</p>
 
       
     </div>
@@ -391,19 +347,13 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/MIT6-828/" rel="tag"># MIT6.828</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/23/sogou/" rel="next" title="Installation of Sogou Input on Linux/Ubuntu">
-                <i class="fa fa-chevron-left"></i> Installation of Sogou Input on Linux/Ubuntu
+              <a href="/2017/03/18/zim/" rel="next" title="Zim - A Note-taking Tool on Linux">
+                <i class="fa fa-chevron-left"></i> Zim - A Note-taking Tool on Linux
               </a>
             
           </div>
@@ -412,8 +362,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/18/zim/" rel="prev" title="Zim - A Note-taking Tool on Linux">
-                Zim - A Note-taking Tool on Linux <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/24/vim/" rel="prev" title="Vim Tips">
+                Vim Tips <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

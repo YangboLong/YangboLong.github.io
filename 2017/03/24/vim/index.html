@@ -90,7 +90,7 @@
 <meta property="og:url" content="https://yangbolong.github.io/2017/03/24/vim/index.html">
 <meta property="og:site_name" content="Yangbo's Blog">
 <meta property="og:description" content="I’ve been using Vim and some handy plugins for a while. Today when I was trying to use the “copy-to-clipboard” combo-key &amp;quot;+y in Vim, I found that it didn’t work for me. After doing some Google se">
-<meta property="og:updated_time" content="2017-03-24T18:45:46.375Z">
+<meta property="og:updated_time" content="2017-03-24T18:49:15.567Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vim Tips">
 <meta name="twitter:description" content="I’ve been using Vim and some handy plugins for a while. Today when I was trying to use the “copy-to-clipboard” combo-key &amp;quot;+y in Vim, I found that it didn’t work for me. After doing some Google se">
@@ -343,8 +343,8 @@
 <a id="more"></a>
 <p>I followed the <a href="http://askubuntu.com/questions/347519/unable-to-copy-from-vim-to-system-clipboard" target="_blank" rel="external">link</a> to install <code>vim-gtk</code>. But after the installation the default Python interpreter for Vim is changed to <code>python3</code>. When I was configuring the Vim plugin <code>YouCompleteMe</code> before, I ran into some incompatiable issues with <code>python3</code>, and had to switch to <code>python</code>.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ vim --version | grep python</div><div class="line">+cryptv          +linebreak       -python          +vreplace</div><div class="line">+cscope          +lispindent      +python3         +wildignore</div></pre></td></tr></table></figure></p>
 <p>I’ve forgot how I made it to change back to <code>python</code> before. So I recompiled Vim from source this time and made some notes below:</p>
-<h1 id="Remove-current-vim-installation"><a href="#Remove-current-vim-installation" class="headerlink" title="Remove current vim installation"></a>Remove current vim installation</h1><p>Refer to <a href="http://stackoverflow.com/questions/32114378/how-to-specify-python-interpreter-version-in-vim" target="_blank" rel="external">link</a>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove --purge vim vim-runtime vim-gnome vim-tiny vim-common vim-gui-common</div></pre></td></tr></table></figure></p>
-<h1 id="Download-and-extract-folder"><a href="#Download-and-extract-folder" class="headerlink" title="Download and extract folder"></a>Download and extract folder</h1><p>Vim 7.4 can be downloaded from <code>ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -xjvf vim-7.4.tar.bz2</div><div class="line"><span class="built_in">cd</span> ~/Download</div></pre></td></tr></table></figure></p>
+<h1 id="Remove-current-Vim-installation"><a href="#Remove-current-Vim-installation" class="headerlink" title="Remove current Vim installation"></a>Remove current Vim installation</h1><p>Refer to <a href="http://stackoverflow.com/questions/32114378/how-to-specify-python-interpreter-version-in-vim" target="_blank" rel="external">link</a>:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove --purge vim vim-runtime vim-gnome vim-tiny vim-common vim-gui-common</div></pre></td></tr></table></figure></p>
+<h1 id="Download-and-extract-folder"><a href="#Download-and-extract-folder" class="headerlink" title="Download and extract folder"></a>Download and extract folder</h1><p>Vim 7.4 can be downloaded from <code>ftp://ftp.vim.org/pub/vim/unix/vim-7.4.tar.bz2</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -xjvf vim-7.4.tar.bz2</div><div class="line"><span class="built_in">cd</span> ~/Download/vim74/</div></pre></td></tr></table></figure></p>
 <h1 id="Install-Vim-from-source"><a href="#Install-Vim-from-source" class="headerlink" title="Install Vim from source"></a>Install Vim from source</h1><p>Don’t forget to add the <code>--enable-gui</code> option:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure --with-features=huge --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config --enable-gui=auto --enable-cscope --enable-multibyte --prefix=/usr</div></pre></td></tr></table></figure></p>
 <p>If the above command fails to work, and displays an error like <code>checking for tgetent()... configure: error: NOT FOUND!</code>, you’ll need to install a library according to <a href="http://askubuntu.com/questions/158344/no-terminal-library-found-when-compiling-vim" target="_blank" rel="external">this link</a>.<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt install libtinfo-dev</div></pre></td></tr></table></figure></p>
 <p>Then run <code>sudo make install</code> to finish the installation.</p>
@@ -380,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/22/lab4/" rel="next" title="lab4">
-                <i class="fa fa-chevron-left"></i> lab4
+              <a href="/2017/03/22/lab4/" rel="next" title="MIT 6.828 Lab 4 - Preemptive Multitasking">
+                <i class="fa fa-chevron-left"></i> MIT 6.828 Lab 4 - Preemptive Multitasking
               </a>
             
           </div>
@@ -528,7 +528,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remove-current-vim-installation"><span class="nav-number">1.</span> <span class="nav-text">Remove current vim installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Download-and-extract-folder"><span class="nav-number">2.</span> <span class="nav-text">Download and extract folder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-Vim-from-source"><span class="nav-number">3.</span> <span class="nav-text">Install Vim from source</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Remove-current-Vim-installation"><span class="nav-number">1.</span> <span class="nav-text">Remove current Vim installation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Download-and-extract-folder"><span class="nav-number">2.</span> <span class="nav-text">Download and extract folder</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install-Vim-from-source"><span class="nav-number">3.</span> <span class="nav-text">Install Vim from source</span></a></li></ol></div>
             
 
           </div>

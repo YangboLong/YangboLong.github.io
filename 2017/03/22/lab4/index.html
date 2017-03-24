@@ -86,13 +86,13 @@
 
 <meta name="description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
 <meta property="og:type" content="article">
-<meta property="og:title" content="lab4">
+<meta property="og:title" content="MIT 6.828 Lab 4 - Preemptive Multitasking">
 <meta property="og:url" content="https://yangbolong.github.io/2017/03/22/lab4/index.html">
 <meta property="og:site_name" content="Yangbo's Blog">
 <meta property="og:description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
-<meta property="og:updated_time" content="2017-03-22T15:37:59.980Z">
+<meta property="og:updated_time" content="2017-03-24T18:51:06.413Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="lab4">
+<meta name="twitter:title" content="MIT 6.828 Lab 4 - Preemptive Multitasking">
 <meta name="twitter:description" content="Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose">
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title> lab4 | Yangbo's Blog </title>
+  <title> MIT 6.828 Lab 4 - Preemptive Multitasking | Yangbo's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -272,7 +272,7 @@
             
             
               
-                lab4
+                MIT 6.828 Lab 4 - Preemptive Multitasking
               
             
           </h1>
@@ -322,7 +322,9 @@
 
       
         <p>Q1: Compare kern/mpentry.S side by side with boot/boot.S. Bearing in mind that kern/mpentry.S is compiled and linked to run above KERNBASE just like everything else in the kernel, what is the purpose of macro MPBOOTPHYS? Why is it necessary in kern/mpentry.S but not in boot/boot.S? In other words, what could go wrong if it were omitted in kern/mpentry.S?<br>A1: Macro <code>MPBOOTPHYS</code> maps a virtual address (above KERNBASE) to be its physical address. It is needed because <code>mpentry.S</code> is linked at high addresses but gets loaded by <code>boot_aps()</code> at the low address <code>MPENTRY_ADDR</code>. The bootloader doesn’t need a macro like this because it is linked and loaded at the same low address (<code>0x00007c00</code>). You can verify this by running <code>objdump -h obj/boot/boot.out</code> and comparing the VMA and LMA columns.</p>
-<a id="more"></a>&gt;<br><br>Q2: It seems that using the big kernel lock guarantees that only one CPU can run the kernel code at a time. Why do we still need separate kernel stacks for each CPU? Describe a scenario in which using a shared kernel stack will go wrong, even with the protection of the big kernel lock.<br>A2: We still need separate stacks for each CPU because during a trap/interrupt, the trapframe is pushed onto the stack without holding the kernel lock (see <code>trapentry.S</code>). For example, when CPU 1 enters the kernel on a system call and while it is in the kernel, CPU 2 attempts to enter the kernel on a timer interrupt. CPU 2 can’t enter the kernel, it will be spinning at the lock we just added in <code>trap()</code>. However, it will have pushed its trap frame on top of the trap frame already pushed by CPU 1. This of course means that when CPU 1 returns to user mode, it will pop off CPU 2’s frame and return in that environment instead of its own.<br><br>After the implementation of <code>Exercise 6</code>, the code run into a triple fault when running <code>make qemu-nox</code>. It took me lots of time to finally figure this out. It was due to the problem when I was implementing <code>Exercise 4</code> the line below<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gdt[GD_TSS0 &gt;&gt; <span class="number">3</span>] = SEG16(STS_T32A, (<span class="keyword">uint32_t</span>) (&amp;ts),</div><div class="line">                <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Taskstate) - <span class="number">1</span>, <span class="number">0</span>);</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>Q2: It seems that using the big kernel lock guarantees that only one CPU can run the kernel code at a time. Why do we still need separate kernel stacks for each CPU? Describe a scenario in which using a shared kernel stack will go wrong, even with the protection of the big kernel lock.<br>A2: We still need separate stacks for each CPU because during a trap/interrupt, the trapframe is pushed onto the stack without holding the kernel lock (see <code>trapentry.S</code>). For example, when CPU 1 enters the kernel on a system call and while it is in the kernel, CPU 2 attempts to enter the kernel on a timer interrupt. CPU 2 can’t enter the kernel, it will be spinning at the lock we just added in <code>trap()</code>. However, it will have pushed its trap frame on top of the trap frame already pushed by CPU 1. This of course means that when CPU 1 returns to user mode, it will pop off CPU 2’s frame and return in that environment instead of its own.</p>
+<p>After the implementation of <code>Exercise 6</code>, the code run into a triple fault when running <code>make qemu-nox</code>. It took me lots of time to finally figure this out. It was due to the problem when I was implementing <code>Exercise 4</code> the line below<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gdt[GD_TSS0 &gt;&gt; <span class="number">3</span>] = SEG16(STS_T32A, (<span class="keyword">uint32_t</span>) (&amp;ts),</div><div class="line">                <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Taskstate) - <span class="number">1</span>, <span class="number">0</span>);</div></pre></td></tr></table></figure></p>
 <p>was incorrectly modified to below<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">gdt[(GD_TSS0 &gt;&gt; <span class="number">3</span>) + i] = SEG16(STS_T32A, (<span class="keyword">uint32_t</span>) (thiscpu), <span class="comment">// should be "&amp;thiscpu-&gt;ts"</span></div><div class="line">                <span class="keyword">sizeof</span>(<span class="keyword">struct</span> Taskstate) - <span class="number">1</span>, <span class="number">0</span>);</div></pre></td></tr></table></figure></p>
 <p>Q3: In your implementation of env_run() you should have called lcr3(). Before and after the call to lcr3(), your code makes references (at least it should) to the variable e, the argument to env_run. Upon loading the %cr3 register, the addressing context used by the MMU is instantly changed. But a virtual address (namely e) has meaning relative to a given address context–the address context specifies the physical address to which the virtual address maps. Why can the pointer e be dereferenced both before and after the addressing switch?<br>A3: The Env array <code>envs</code> is mapped to virtual address <code>UENVS</code> under page directories <code>kern_pgdir</code> in the function call <code>i386_init -&gt; mem_init</code>; The mappings are then copied to all new page directories <code>e-&gt;env_pgdir</code> through call chain <code>i386_init -&gt; ENV_CREATE -&gt; env_create -&gt; env_alloc -&gt; env_setup_vm</code>. The pointer <code>e</code> therefore can be dereferenced after the addressing switch although the addressing context has been changed.</p>
 <p>Q4: Whenever the kernel switches from one environment to another, it must ensure the old environment’s registers are saved so they can be restored properly later. Why? Where does this happen?<br>A4: The registers are saved on the user environment’s stack as part of the trapframe constructed by the <code>int</code> instruction and the code in <code>alltraps</code>. To restore the state of a new process, JOS uses the <code>env_pop_tf()</code> function, which switches first to the new process’ stack and the pops all the registers in place.</p>

@@ -100,7 +100,7 @@ Install the syntax highlighting plugin Source View: sudo apt install python-gtks
 
 Source View Plugin Usage
 Enable the Source View plug">
-<meta property="og:updated_time" content="2017-03-24T01:34:08.870Z">
+<meta property="og:updated_time" content="2017-07-06T15:15:54.484Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zim - A Note-taking Tool on Linux">
 <meta name="twitter:description" content="Installation on Linux
@@ -366,6 +366,11 @@ Enable the Source View plug">
 <li><strong>&lt;Ctrl&gt;J</strong>: Jump to page… (either an existing or a new page)</li>
 <li>Enable the <code>Table of Contents</code> plugin to display the headings of the current article in a floating window on the top right corner.</li>
 </ul>
+<h1 id="Set-Vim-as-Default-Editor"><a href="#Set-Vim-as-Default-Editor" class="headerlink" title="Set Vim as Default Editor"></a>Set Vim as Default Editor</h1><ul>
+<li>Go to <code>Edit -&gt; Preferences -&gt; Applications -&gt; Set default text editor</code>, and then set it to Gvim. Now when you’re looking at a note, go to <code>Tools -&gt; Edit Source</code> and you’ll open that note in Vim.</li>
+<li>You can bind that to a keyboard shortcut, for example maybe <code>F4</code>. Search for keyword <code>edit_page_source</code> in <code>~/.config/zim/accelmap</code> and change the line to be:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(gtk_accel_path <span class="string">"&lt;Actions&gt;/GtkInterface/edit_page_source"</span> <span class="string">"F4"</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>More info: <a href="http://zim-wiki.org/manual/Start.html" target="_blank" rel="external">http://zim-wiki.org/manual/Start.html</a></p>
 
       
@@ -551,7 +556,7 @@ Enable the Source View plug">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Installation-on-Linux"><span class="nav-number">1.</span> <span class="nav-text">Installation on Linux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source-View-Plugin-Usage"><span class="nav-number">2.</span> <span class="nav-text">Source View Plugin Usage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Usage-Tips"><span class="nav-number">3.</span> <span class="nav-text">Usage Tips</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Installation-on-Linux"><span class="nav-number">1.</span> <span class="nav-text">Installation on Linux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Source-View-Plugin-Usage"><span class="nav-number">2.</span> <span class="nav-text">Source View Plugin Usage</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Usage-Tips"><span class="nav-number">3.</span> <span class="nav-text">Usage Tips</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-Vim-as-Default-Editor"><span class="nav-number">4.</span> <span class="nav-text">Set Vim as Default Editor</span></a></li></ol></div>
             
 
           </div>

@@ -632,6 +632,11 @@
 <li><strong>&lt;Ctrl&gt;J</strong>: Jump to page… (either an existing or a new page)</li>
 <li>Enable the <code>Table of Contents</code> plugin to display the headings of the current article in a floating window on the top right corner.</li>
 </ul>
+<h1 id="Set-Vim-as-Default-Editor"><a href="#Set-Vim-as-Default-Editor" class="headerlink" title="Set Vim as Default Editor"></a>Set Vim as Default Editor</h1><ul>
+<li>Go to <code>Edit -&gt; Preferences -&gt; Applications -&gt; Set default text editor</code>, and then set it to Gvim. Now when you’re looking at a note, go to <code>Tools -&gt; Edit Source</code> and you’ll open that note in Vim.</li>
+<li>You can bind that to a keyboard shortcut, for example maybe <code>F4</code>. Search for keyword <code>edit_page_source</code> in <code>~/.config/zim/accelmap</code> and change the line to be:<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(gtk_accel_path <span class="string">"&lt;Actions&gt;/GtkInterface/edit_page_source"</span> <span class="string">"F4"</span>)</div></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>More info: <a href="http://zim-wiki.org/manual/Start.html" target="_blank" rel="external">http://zim-wiki.org/manual/Start.html</a></p>
 
           
